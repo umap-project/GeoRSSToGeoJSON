@@ -1,0 +1,24 @@
+{
+  "name": "GeoRSSToGeoJSON",
+  "version": "0.0.1",
+  "description": "From GeoRSS to GeoJSON",
+  "main": "GeoRSSToGeoJSON.js",
+  "dependencies": {
+    "xmldom": "~0.1.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "tape test/index.js"
+  },
+  "bin": {
+    "georsstogeojson": "georsstogeojson"
+  },
+  "keywords": [
+    "geo",
+    "georss",
+    "geojson",
+    "map"
+  ],
+  "author": "Yohan Boniface",
+  "license": "WTFPL"
+}
