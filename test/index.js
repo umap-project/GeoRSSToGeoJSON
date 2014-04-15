@@ -25,6 +25,14 @@ test('Simple GeoRSS - Point', function(t) {
     );
     t.end();
 });
+test('Simple GeoRSS - Point', function(t) {
+    t.deepEqual(
+        JSON.parse(fs.readFileSync('test/data/simple-georss-line.geojson')),
+        g(toDOM(fs.readFileSync('test/data/simple-georss-line.xml'))),
+        'simple GeoRSS with <georss:line> tag'
+    );
+    t.end();
+});
 
 function toDOM(_) {
     if (typeof DOMParser === 'undefined') {

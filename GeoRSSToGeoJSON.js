@@ -18,18 +18,31 @@ var GeoRSSToGeoJSON = function (dom, options) {
     };
 
     function geom (node) {
+
+        function p(c) {return parseFloat(c);}
+        function r(c) {return c.reverse().map(p);}  // we have latlon we want lonlat
+
         var type, coordinates;
+
         if (get1(node, 'geo:long')) {
             type = 'Point';
-            coordinates = [nodeVal(get1(node, 'geo:long')), nodeVal(get1(node, 'geo:lat'))];
+            coordinates = [p(nodeVal(get1(node, 'geo:long'))), p(nodeVal(get1(node, 'geo:lat')))];
         } else if (get1(node, 'georss:point')) {
             type = 'Point';
-            coordinates = nodeVal(get1(node, 'georss:point')).split(' ').reverse();
+            coordinates = r(nodeVal(get1(node, 'georss:point')).split(' '));
+        } else if (get1(node, 'georss:line')) {
+            type = 'LineString';
+            var flat = nodeVal(get1(node, 'georss:line')).split(' ');
+            if (flat.length % 2 !== 0) return;
+            coordinates = [];
+            for (var i = 0; i < flat.length; i+=2) {
+                coordinates.push(r(flat.slice(i, i+2)));
+            }
         }
         if (type && coordinates) {
             return {
                 type: type,
-                coordinates: coordinates.map(parseFloat)
+                coordinates: coordinates
             };
         }
     }
