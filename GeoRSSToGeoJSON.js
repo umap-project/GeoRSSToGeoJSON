@@ -21,6 +21,7 @@ var GeoRSSToGeoJSON = function (dom, options) {
 
         function p(c) {return parseFloat(c);}
         function r(c) {return c.reverse().map(p);}  // we have latlon we want lonlat
+        function e(f) {var _=[]; for (var i=0; i<f.length; i+=2) {_.push(r(f.slice(i, i+2)));} return _;}
 
         var type, coordinates;
 
@@ -30,13 +31,18 @@ var GeoRSSToGeoJSON = function (dom, options) {
         } else if (get1(node, 'georss:point')) {
             type = 'Point';
             coordinates = r(nodeVal(get1(node, 'georss:point')).split(' '));
-        } else if (get1(node, 'georss:line')) {
-            type = 'LineString';
-            var flat = nodeVal(get1(node, 'georss:line')).split(' ');
-            if (flat.length % 2 !== 0) return;
-            coordinates = [];
-            for (var i = 0; i < flat.length; i+=2) {
-                coordinates.push(r(flat.slice(i, i+2)));
+        } else {
+            var line = get1(node, 'georss:line'),
+                poly = get1(node, 'georss:polygon');
+            if (line || poly) {
+                type = line ? 'LineString' : 'Polygon';
+                var tag = line ? 'georss:line' : 'georss:polygon';
+                coordinates = nodeVal(get1(node, tag)).split(' ');
+                if (coordinates.length % 2 !== 0) return;
+                coordinates = e(coordinates);
+                if (poly) {
+                    coordinates = [coordinates];
+                }
             }
         }
         if (type && coordinates) {
