@@ -41,6 +41,14 @@ test('Simple GeoRSS - Polygon', function(t) {
     );
     t.end();
 });
+test('Atom - Point', function(t) {
+    t.deepEqual(
+        g(toDOM(fs.readFileSync('test/data/simple-atom-point.xml'))),
+        JSON.parse(fs.readFileSync('test/data/simple-atom-point.geojson')),
+        'simple GeoRSS in an atom format with <georss:point> tag'
+    );
+    t.end();
+});
 
 function toDOM(_) {
     if (typeof DOMParser === 'undefined') {

@@ -1,12 +1,8 @@
 var GeoRSSToGeoJSON = function (dom, options) {
-    var serializer;
-    if (typeof XMLSerializer !== 'undefined') {
-        serializer = new XMLSerializer();
-    // only require xmldom in a node environment
-    } else if (typeof exports === 'object' && typeof process === 'object' && !process.browser) {
-        serializer = new (require('xmldom').XMLSerializer)();
-    }
-    function xml2str(str) { return serializer.serializeToString(str); }
+    var mode = dom.documentElement.nodeName === "feed" ? 'atom' : 'rss',
+        itemTag = mode === 'atom' ? 'entry' : 'item',
+        descrTag = mode === 'atom' ? 'content' : 'description';
+
     function get(x, y) { return x.getElementsByTagName(y); }
     function get1(x, y) { var n = get(x, y); return n.length ? n[0] : null; }
     function norm(el) { if (el.normalize) { el.normalize(); } return el; }
@@ -62,13 +58,13 @@ var GeoRSSToGeoJSON = function (dom, options) {
             geometry: geometry,
             properties: {
                 title: nodeVal(get1(node, 'title')),
-                description: nodeVal(get1(node, 'description'))
+                description: nodeVal(get1(node, descrTag))
             }
         };
         g.features.push(f);
     }
 
-    var items = get(dom, 'item');
+    var items = get(dom, itemTag);
     for (var i = 0; i < items.length; i++) {
         processOne(items[i]);
     }
