@@ -19,12 +19,19 @@ var GeoRSSToGeoJSON = function (dom, options) {
 
         var type, coordinates;
 
+        NODE = node;
         if (get1(node, 'geo:long')) {
             type = 'Point';
             coordinates = [p(nodeVal(get1(node, 'geo:long'))), p(nodeVal(get1(node, 'geo:lat')))];
+        } else if (get1(node, 'long')) {
+            type = 'Point';
+            coordinates = [p(nodeVal(get1(node, 'long'))), p(nodeVal(get1(node, 'lat')))];
         } else if (get1(node, 'georss:point')) {
             type = 'Point';
             coordinates = r(nodeVal(get1(node, 'georss:point')).split(' '));
+        } else if (get1(node, 'point')) {
+            type = 'Point';
+            coordinates = r(nodeVal(get1(node, 'point')).split(' '));
         } else {
             var line = get1(node, 'georss:line'),
                 poly = get1(node, 'georss:polygon');
