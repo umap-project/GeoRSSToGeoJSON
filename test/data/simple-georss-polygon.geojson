@@ -14,7 +14,8 @@
       },
       "properties": {
         "title": "Title 1",
-        "description": "Description 1"
+        "description": "Description 1",
+        "link": "http://link.com"
       }
     }
   ]

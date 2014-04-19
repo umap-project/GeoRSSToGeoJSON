@@ -4,6 +4,7 @@ var GeoRSSToGeoJSON = function (dom, options) {
     function get1(x, y) { var n = get(x, y); return n.length ? n[0] : null; }
     function norm(el) { if (el.normalize) { el.normalize(); } return el; }
     function nodeVal(x) { if (x) {norm(x);} return x && x.firstChild && x.firstChild.nodeValue; }
+    function attr(x, y) { return x.getAttribute(y); }
 
     var g = {
         type: 'FeatureCollection',
@@ -55,9 +56,17 @@ var GeoRSSToGeoJSON = function (dom, options) {
             geometry: geometry,
             properties: {
                 title: nodeVal(get1(node, 'title')),
-                description: nodeVal(get1(node, 'description'))
+                description: nodeVal(get1(node, 'description')),
+                link: nodeVal(get1(node, 'link')),
             }
         };
+        var enclosure = get1(node, 'enclosure'), mime;
+        if (enclosure) {
+            mime = attr(enclosure, 'type');
+            if (mime.indexOf('image') !== -1) {
+                f.properties.img = attr(enclosure, "url");  // How not to invent a key?
+            }
+        }
         g.features.push(f);
     }
 

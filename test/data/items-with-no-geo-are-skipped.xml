@@ -9,7 +9,7 @@
         <generator>http://www.pouet.com/</generator>
         <item>
             <title>Title 1</title>
-            <link>http://www.flickr.com/photos/raver_mikey/13825209154/</link>
+            <link>http://link.com</link>
             <description>Description 1</description>
             <pubDate>Sun, 13 Apr 2014 09:20:36 -0700</pubDate>
             <geo:lat>53.443324</geo:lat>
@@ -17,7 +17,7 @@
         </item>
         <item>
             <title>Title 2</title>
-            <link>http://www.flickr.com/photos/raver_mikey/13824848905/</link>
+            <link>http://link.com</link>
             <description>Description 2</description>
             <pubDate>Sun, 13 Apr 2014 09:20:37 -0700</pubDate>
             <dc:date.Taken>2014-03-01T12:03:21-08:00</dc:date.Taken>

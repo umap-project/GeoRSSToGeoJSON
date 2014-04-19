@@ -41,6 +41,14 @@ test('Simple GeoRSS - Polygon', function(t) {
     );
     t.end();
 });
+test('Enclosure', function(t) {
+    t.deepEqual(
+        g(toDOM(fs.readFileSync('test/data/enclosure-image.xml'))),
+        JSON.parse(fs.readFileSync('test/data/enclosure-image.geojson')),
+        'enclosure type image is imported as img'
+    );
+    t.end();
+});
 
 function toDOM(_) {
     if (typeof DOMParser === 'undefined') {
