@@ -1,7 +1,4 @@
 var GeoRSSToGeoJSON = function (dom, options) {
-    var mode = dom.documentElement.nodeName === "feed" ? 'atom' : 'rss',
-        itemTag = mode === 'atom' ? 'entry' : 'item',
-        descrTag = mode === 'atom' ? 'content' : 'description';
 
     function get(x, y) { return x.getElementsByTagName(y); }
     function get1(x, y) { var n = get(x, y); return n.length ? n[0] : null; }
@@ -58,13 +55,13 @@ var GeoRSSToGeoJSON = function (dom, options) {
             geometry: geometry,
             properties: {
                 title: nodeVal(get1(node, 'title')),
-                description: nodeVal(get1(node, descrTag))
+                description: nodeVal(get1(node, 'description'))
             }
         };
         g.features.push(f);
     }
 
-    var items = get(dom, itemTag);
+    var items = get(dom, 'item');
     for (var i = 0; i < items.length; i++) {
         processOne(items[i]);
     }
