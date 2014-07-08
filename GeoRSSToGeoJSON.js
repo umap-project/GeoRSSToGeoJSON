@@ -67,11 +67,14 @@ var GeoRSSToGeoJSON = function (dom, options) {
                 link: nodeVal(get1(node, 'link')),
             }
         };
-        var enclosure = get1(node, 'enclosure'), mime;
-        if (enclosure) {
-            mime = attr(enclosure, 'type');
+        var media = get1(node, 'media:content'), mime;
+        if (!media) {
+            media = get1(node, 'enclosure'), mime;
+        }
+        if (media) {
+            mime = attr(media, 'type');
             if (mime.indexOf('image') !== -1) {
-                f.properties.img = attr(enclosure, "url");  // How not to invent a key?
+                f.properties.img = attr(media, "url");  // How not to invent a key?
             }
         }
         g.features.push(f);

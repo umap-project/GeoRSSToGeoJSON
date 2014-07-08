@@ -49,6 +49,14 @@ test('Enclosure', function(t) {
     );
     t.end();
 });
+test('media:content', function(t) {
+    t.deepEqual(
+        g(toDOM(fs.readFileSync('test/data/media-content-image.xml'))),
+        JSON.parse(fs.readFileSync('test/data/media-content-image.geojson')),
+        'media:content type image is imported as img'
+    );
+    t.end();
+});
 
 function toDOM(_) {
     if (typeof DOMParser === 'undefined') {

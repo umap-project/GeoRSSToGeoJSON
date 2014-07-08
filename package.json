@@ -1,6 +1,6 @@
 {
-  "name": "GeoRSSToGeoJSON",
-  "version": "0.0.1",
+  "name": "georsstogeojson",
+  "version": "0.0.2",
   "description": "From GeoRSS to GeoJSON",
   "main": "GeoRSSToGeoJSON.js",
   "dependencies": {
