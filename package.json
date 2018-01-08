@@ -4,7 +4,8 @@
   "description": "From GeoRSS to GeoJSON",
   "main": "GeoRSSToGeoJSON.js",
   "dependencies": {
-    "xmldom": "~0.1.19"
+    "xmldom": "~0.1.19",
+    "concat-stream": "^1.6.0"    
   },
   "devDependencies": {},
   "scripts": {
