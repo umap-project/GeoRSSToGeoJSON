@@ -2,7 +2,6 @@
 
 var t = require('./GeoRSSToGeoJSON').GeoRSSToGeoJSON,
     args = process.argv.slice(2),
-    concat = require('concat-stream'),
     fs = require('fs'),
     xmldom = new (require('xmldom').DOMParser)();
 if (args.length != 1) {
