@@ -2,10 +2,7 @@ const test = require('tape').test
 const assert = require('node:assert')
 const fs = require('node:fs')
 const g = require('../GeoRSSToGeoJSON').GeoRSSToGeoJSON
-
-if (!process.browser) {
-  const xmldom = require('xmldom')
-}
+const { DOMParser } = require('@xmldom/xmldom')
 
 test('Simple GeoRSS - Point', (t) => {
   t.deepEqual(
@@ -59,8 +56,5 @@ test('media:content', (t) => {
 })
 
 function toDOM(_) {
-  if (typeof DOMParser === 'undefined') {
-    return new xmldom.DOMParser().parseFromString(_.toString())
-  }
-  return new DOMParser().parseFromString(_, 'text/xml')
+  return new DOMParser().parseFromString(_.toString(), 'text/xml')
 }
